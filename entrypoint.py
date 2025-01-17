@@ -77,7 +77,7 @@ def main():
         )
     except:
         try:
-            logger.warn("package not found, creating package")
+            logger.warning("package not found, creating package")
             copr_package = copr_client.package_proxy.add(
                 cli_args.owner,
                 cli_args.project_name,
@@ -107,7 +107,7 @@ def main():
     except Exception as e:
         logger.error("could not trigger build")
         logger.error(e)
-
+        exit(1)
 
 
 if __name__ == "__main__":

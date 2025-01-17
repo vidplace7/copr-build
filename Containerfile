@@ -1,5 +1,9 @@
-FROM fedora:38
+FROM quay.io/centos/centos:stream9
 
-RUN dnf install -y copr-cli
+# Install COPR CLI
+RUN dnf config-manager --set-enabled crb \
+    && dnf install -y epel-release \
+    && dnf install -y copr-cli
 
-COPY copr-build /usr/local/bin/copr-build
+COPY entrypoint.py /entrypoint.py
+ENTRYPOINT [ "/entrypoint.py" ]

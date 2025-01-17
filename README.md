@@ -21,13 +21,11 @@ jobs:
       contents: read
       packages: read
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}/copr-build:latest
     steps:
       - name: checkout to execute local action
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: trigger copr build
-        uses: akdev1l/copr-build@main
+        uses: vidplace7/copr-build@main
         id: selftest
         env:
           COPR_API_TOKEN_CONFIG: ${{ secrets.COPR_API_TOKEN_CONFIG }}
