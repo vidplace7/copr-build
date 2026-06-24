@@ -5,6 +5,7 @@ from logging import basicConfig, getLogger, INFO
 from os import getenv, makedirs, path
 from sys import exit
 
+# From the 'python-copr' RPM package:
 from copr.v3 import Client
 
 basicConfig(
