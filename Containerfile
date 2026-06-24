@@ -1,4 +1,4 @@
-FROM quay.io/centos/centos:stream9
+FROM quay.io/centos/centos:stream10
 
 # Install COPR CLI
 RUN dnf config-manager --set-enabled crb \
