@@ -87,7 +87,7 @@ def main():
                 {
                     "clone_url": cli_args.git_remote,
                     "scm_type": "git",
-                    "comittish": cli_args.committish,
+                    "committish": cli_args.committish,
                     "source_build_method": cli_args.source_build_method,
                 }
             )
@@ -99,11 +99,21 @@ def main():
 
 
     try:
-        copr_client.package_proxy.build(
-            cli_args.owner,
-            cli_args.project_name,
-            cli_args.package_name,
+        # https://python-copr.readthedocs.io/en/latest/client_v3/proxies.html#copr.v3.proxies.build.BuildProxy.create_from_scm
+        copr_client.build_proxy.create_from_scm(
+            ownername=cli_args.owner,
+            projectname=cli_args.project_name,
+            clone_url=cli_args.git_remote,
+            committish=cli_args.committish,
+            scm_type="git",
+            source_build_method=cli_args.source_build_method
         )
+        # # https://python-copr.readthedocs.io/en/latest/client_v3/proxies.html#copr.v3.proxies.package.PackageProxy.build
+        # copr_client.package_proxy.build(
+        #     cli_args.owner,
+        #     cli_args.project_name,
+        #     cli_args.package_name,
+        # )
         logger.info(f"triggered copr build for {cli_args.owner}/{cli_args.project_name}/{cli_args.package_name}")
     except Exception as e:
         logger.error("could not trigger build")
